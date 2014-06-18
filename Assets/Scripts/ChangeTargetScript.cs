@@ -5,24 +5,33 @@ public class ChangeTargetScript : MonoBehaviour
 {
 
 		public Transform[] Targets;
-		private int targetID = 0;
-		private AICharacterControl AICOntrolScript;
-	    
+		int targetID = 0;
+		int currentTarget = 0;
+		AICharacterControl AICOntrolScript;
+		Rect labelRect = new Rect (10, Screen.height - 60, 230, 40);
 		void Start ()
 		{
 				AICOntrolScript = gameObject.GetComponent<AICharacterControl> ();
+				UpdateTargetAndIncrement ();
 		}
 
 		// Update is called once per frame
 		void Update ()
 		{
 				if (Input.GetKeyDown (KeyCode.N)) {
-						if (targetID < Targets.Length - 1) {
-								++targetID;
-						} else {
-								targetID = 0;
-						}
-						AICOntrolScript.target = Targets [targetID];
+						UpdateTargetAndIncrement ();
+				}
+		}
+		void OnGUI ()
+		{
+				GUI.Box (labelRect, "Cel: " + Targets [currentTarget].name + "\nAby zmienić cel naciśnik klawisz 'N'");
+		}
+		void UpdateTargetAndIncrement ()
+		{
+				currentTarget = targetID;
+				AICOntrolScript.target = Targets [targetID++];
+				if (targetID == Targets.Length) {
+						targetID = 0;
 				}
 		}
 }
