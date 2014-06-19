@@ -24,7 +24,9 @@ public class ChangeTargetScript : MonoBehaviour
 		}
 		void OnGUI ()
 		{
-				GUI.Box (labelRect, "Cel: " + Targets [currentTarget].name + "\nAby zmienić cel naciśnik klawisz 'N'");
+				if (GUI.Button (labelRect, "Cel: " + Targets [currentTarget].name + "\nAby zmienić cel naciśnik klawisz 'N'")) {
+						UpdateTargetAndIncrement ();
+				}
 		}
 		void UpdateTargetAndIncrement ()
 		{
